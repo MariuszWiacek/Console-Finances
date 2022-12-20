@@ -89,40 +89,126 @@ var finances = [
   
   console.log("Financial Analysis \n----------------------------");
 
-// 1)  The total number of months included in the dataset.
+  //creating 2D array
 
-  console.log("Total Months: " + finances.length);
+var monthsArray = [];
+var sumsArray = [];
 
-// 2) The net total amount of Profit/Losses over the entire period.
+// loop nested
+
+for (i = 0; i < finances.length; i++) {
+    for (j = 0; j < finances[i].length; j++) {
+      monthsArray.push(finances[i][0]);
+      sumsArray.push(finances[i][1]);
+    }
+  }
+  
+
+  
+  
+  // Removing the duplicates in the month array created when pusing new arrays
+var months = [];
+for (var i = 0; i < monthsArray.length; i++) {
+  if (i % 2 === 0) {
+    months.push(monthsArray[i]);
+  }
+}
+
+// Removing the duplicates in the sums array created when pusing new arrays
+var sums = [];
+for (var i = 0; i < sumsArray.length; i++) {
+  if (i % 2 === 0) {
+    sums.push(sumsArray[i]);
+  }
+}
+
+//Calculating the total number of months
+var numberOfMonths = months.length;
+console.log("Total Months: " + numberOfMonths);
 
 
-// add everything together
-// probably a loop
+
+
+
+
+  // 2) Total amount of Profit/Losses over the entire period with loop totalAmount
+  var totalAmount = 0;
+  for (var i = 0; i < sums.length; i++) {
+    totalAmount = totalAmount + sums[i];
+  }
+  console.log("Total: $" + totalAmount);
+
+
 
 
 // 3) The average of the changes in Profit/Losses over the entire period.
+//log
+
+//-adding changes to array 
+//-subtracting the previous month from this month with loop - difference
+
+var changes = [];
+for (var i = 0; i < sums.length - 1; i++) {
+  var difference = sums[i + 1] - sums[i];
+  changes.push(difference);
+}
+// // (Total/total number of changes) ===> total change/(months - 1)
+var total = 0;
+var averageChange = 0;
+for (var i = 0; i < changes.length; i++) {
+  total = total + changes[i];
+  averageChange = total / (numberOfMonths - 1);
+}
 
 
-// calculate each change by subtracting the previous month from this month
-// You will need to track what the total change in profits is from month to month and then find the average.
-// (Total/total number of changes) ===> total change/(months - 1)
-// maybe put all the changes into an array? using .push(...) ?
+//log result and adding toFixed(2) method in order to show only 2 decimals
+console.log("Average  Change: $" + averageChange.toFixed(2));
+
 
 
 // 4) The greatest increase in profits (date and amount) over the entire period.
 
-
 // start with 0
+var maxIncrease = changes[0];
+
 //   check the last increase. If it's bigger than 0, keep track of the new biggest one.
 //   in a loop
+for (var i = 1; i < changes.length; i++) {
+  if (changes[i] > maxIncrease) {
+    maxIncrease = changes[i];
+  }
+}
+var findTheBestMonth = changes.indexOf(maxIncrease);
 
 
+
+//log result
+console.log(
+    "Greatest Increase in Profits: " + months[findTheBestMonth + 1] + " $" + maxIncrease
+  );
 
 // 5) The greatest decrease in losses (date and amount) over the entire period.
+var maxDecrease = changes[0];
+for (var i = 1; i < changes.length; i++) {
+  if (changes[i] < maxDecrease) {
+    maxDecrease = changes[i];
+  }
+}
+var worstMonth = changes.indexOf(maxDecrease);
 
 
+//log result
+console.log(
+    "Greatest Decrease in Profits: " +
+      months[worstMonth + 1] +
+      " $" +
+      maxDecrease
+  );
+  
 
-// console output format!
+// RESULT
+
+
 // Financial Analysis
 // ----------------------------
 // Total Months: 25
