@@ -20,7 +20,7 @@ wiacek.mariusz@gmail.com
 
 ## Screenshot
 
-![screenshot](images/untitled.jpg)
+![screenshot](../images/untitled.jpg)
 
 
 ## Copyright
